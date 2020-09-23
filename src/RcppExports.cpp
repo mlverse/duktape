@@ -6,13 +6,12 @@
 using namespace Rcpp;
 
 // rcpp_hello_world
-List rcpp_hello_world();
+void rcpp_hello_world();
 RcppExport SEXP _duktape_rcpp_hello_world() {
 BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpp_hello_world());
-    return rcpp_result_gen;
+    rcpp_hello_world();
+    return R_NilValue;
 END_RCPP
 }
 
