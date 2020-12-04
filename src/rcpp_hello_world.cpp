@@ -61,9 +61,10 @@ void duk_eval_code(std::string script) {
   duk_put_global_string(ctx, "print");
 
   if (duk_safe_call(ctx, unsafe_code, &script /*udata*/, 0 /*nargs*/, 1 /*nrets */) != 0) {
-    printf("Unexpected error: %s\n", duk_safe_to_string(ctx, -1));
+    throw(Rcpp::exception(duk_safe_to_string(ctx, -1), 4));
   }
   
+  const char *res = duk_get_string(ctx, -1);
   duk_pop(ctx);  /* pop eval result */
   
   duk_destroy_heap(ctx);
@@ -71,5 +72,5 @@ void duk_eval_code(std::string script) {
 
 // [[Rcpp::export]]
 void rcpp_eval(std::string script) {
-    duk_eval_code(script);
+   duk_eval_code(script);
 }
