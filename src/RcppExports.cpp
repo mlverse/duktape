@@ -5,12 +5,12 @@
 
 using namespace Rcpp;
 
-// rcpp_hello_world
-void rcpp_hello_world();
-RcppExport SEXP _duktape_rcpp_hello_world() {
+// rcpp_test
+void rcpp_test();
+RcppExport SEXP _duktape_rcpp_test() {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_hello_world();
+    rcpp_test();
     return R_NilValue;
 END_RCPP
 }
@@ -26,7 +26,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_duktape_rcpp_hello_world", (DL_FUNC) &_duktape_rcpp_hello_world, 0},
+    {"_duktape_rcpp_test", (DL_FUNC) &_duktape_rcpp_test, 0},
     {"_duktape_rcpp_eval", (DL_FUNC) &_duktape_rcpp_eval, 1},
     {NULL, NULL, 0}
 };

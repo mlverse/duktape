@@ -42,7 +42,7 @@ void duk_hello() {
 }
 
 // [[Rcpp::export]]
-void rcpp_hello_world() {
+void rcpp_test() {
   duk_hello();
 }
 
