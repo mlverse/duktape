@@ -14,9 +14,20 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// rcpp_eval
+void rcpp_eval(std::string script);
+RcppExport SEXP _duktape_rcpp_eval(SEXP scriptSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type script(scriptSEXP);
+    rcpp_eval(script);
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_duktape_rcpp_hello_world", (DL_FUNC) &_duktape_rcpp_hello_world, 0},
+    {"_duktape_rcpp_eval", (DL_FUNC) &_duktape_rcpp_eval, 1},
     {NULL, NULL, 0}
 };
 

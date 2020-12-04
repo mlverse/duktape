@@ -43,5 +43,33 @@ void duk_hello() {
 
 // [[Rcpp::export]]
 void rcpp_hello_world() {
-    duk_hello();
+  duk_hello();
+}
+
+static duk_ret_t unsafe_code(duk_context *ctx, void *udata) {
+  std::string* pScript = (std::string*) udata;
+  
+  duk_eval_string(ctx, pScript->c_str());
+
+  return 0;
+}
+
+void duk_eval_code(std::string script) {
+  duk_context *ctx = duk_create_heap_default();
+  
+  duk_push_c_function(ctx, native_print, DUK_VARARGS);
+  duk_put_global_string(ctx, "print");
+
+  if (duk_safe_call(ctx, unsafe_code, &script /*udata*/, 0 /*nargs*/, 1 /*nrets */) != 0) {
+    printf("Unexpected error: %s\n", duk_safe_to_string(ctx, -1));
+  }
+  
+  duk_pop(ctx);  /* pop eval result */
+  
+  duk_destroy_heap(ctx);
+}
+
+// [[Rcpp::export]]
+void rcpp_eval(std::string script) {
+    duk_eval_code(script);
 }

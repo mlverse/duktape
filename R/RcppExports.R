@@ -5,3 +5,7 @@ rcpp_hello_world <- function() {
     invisible(.Call(`_duktape_rcpp_hello_world`))
 }
 
+rcpp_eval <- function(script) {
+    invisible(.Call(`_duktape_rcpp_eval`, script))
+}
+
